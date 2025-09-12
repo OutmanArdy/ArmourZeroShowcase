@@ -28,12 +28,6 @@ http_response_code($status_code);
     rel="stylesheet"
   />
   <style>
-        :root {
-            --primary: #ff9500;
-            --accent:  #ff8c00;
-            --black:   #121212;
-            --white:   #FFFFFF;
-        }
         body {
             background: var(--black);
             color: var(--white);
@@ -41,58 +35,6 @@ http_response_code($status_code);
             padding: 20px;
             font-size: 20px;
             font-weight: 400; /* This is optional but can be used for clarity */
-        }
-        .main-content {
-            background: #1e1e1e;
-            padding: 30px;
-            border-radius: 8px;
-            border: 1px solid #333;
-            text-align: center;
-        }
-        h1 {
-            color: var(--primary);
-            font-size: 34px;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-        b {
-            font-weight: 700;
-        }
-        input[type="text"] {
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 6px;
-            border: 2px solid var(--primary);
-            width: 80%;
-            max-width: 400px;
-            box-sizing: border-box;
-            margin-bottom: 15px;
-        }
-        input[type="submit"] {
-            padding: 12px;
-            font-size: 20px;
-            background: linear-gradient(to bottom, var(--primary), var(--accent));
-            color: #000;
-            cursor: pointer;
-            border: none;
-            border-radius: 6px;
-            box-shadow: 0 0 10px var(--primary);
-            transition: all 0.3s ease;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        input[type="submit"]:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 20px var(--primary);
-        }
-        .output {
-            background: #121212;
-            padding: 20px;
-            border-radius: 8px;
-            color: var(--primary);
-            border: 1px solid #333;
-            margin-top: 20px;
-            text-align: center; 
         }
     </style>
 </head>

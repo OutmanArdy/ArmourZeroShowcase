@@ -71,7 +71,14 @@ To run this showcase locally, install a web server stack like **XAMPP**, **MAMP*
   - Full server compromise
   - Information theft
 
----
+### ✅ Secure Implementation:
+
+- Use a whitelist of allowed commands
+- Validate and sanitize all inputs strictly
+- Escape output before displaying
+- Avoid direct use of `shell_exec` if possible
+
+## Avoid direct use of shell_exec if possible
 
 # ⚠️ Vulnerability 2: Cross-Site Scripting (XSS)
 
@@ -92,6 +99,13 @@ To run this showcase locally, install a web server stack like **XAMPP**, **MAMP*
   - Phishing links
   - Session hijacking
 
+### ✅ Secure Implementation:
+
+- Always HTML-encode or escape user input before rendering
+- Use frameworks/libraries with built-in XSS protection
+- Apply input validation for expected formats (e.g., alphanumeric)
+- Implement Content Security Policy (CSP)
+
 ---
 
 # ⚠️ Vulnerability 3: Private Key Exposure
@@ -109,6 +123,13 @@ To run this showcase locally, install a web server stack like **XAMPP**, **MAMP*
 
 - Attackers could impersonate your server
 - Full compromise of secure connections (SSL/TLS)
+
+### ✅ Secure Implementation:
+
+- Never commit secrets or keys to version control
+- Add sensitive files to `.gitignore`
+- Store secrets in environment variables or secret managers
+- Rotate and revoke exposed keys immediately
 
 ---
 
@@ -130,9 +151,56 @@ To run this showcase locally, install a web server stack like **XAMPP**, **MAMP*
   - Abuse your email system for spam/phishing
   - Leak sensitive data silently
 
+### ✅ Secure Implementation:
+
+- Upgrade to the latest PHPMailer version
+- Validate email addresses with proper filtering
+- Sanitize input to disallow newlines and header injection
+- Use libraries’ built-in functions instead of manual header handling
+
 ---
 
-## ✅ How ArmourZero Helps
+# ⚠️ Vulnerability 5: IaC Misconfiguration
+
+### 🔎 Where?
+
+Source: Terraform `.tf` file with insecure Security Group rules
+
+### 🛠️ Problem:
+
+- **Security Group**
+
+  - Ingress allows `0.0.0.0/0` → SSH exposed to the entire internet
+  - Egress allows `0.0.0.0/0` → Any outbound traffic permitted (no restrictions)
+
+- **S3 Bucket**
+
+  - `acl = "public-read"` → Bucket data is publicly accessible
+  - No proper access control applied
+
+- **Encryption**
+  - Server-Side Encryption disabled (`sse_algorithm = "NONE"`) → Data stored in plaintext
+
+### 💥 Impact:
+
+Attackers can:
+
+- Brute-force or steal SSH credentials and gain server access
+- Exfiltrate or overwrite sensitive files from the public S3 bucket
+- Intercept, modify, or leak unencrypted data
+- Use open egress to pivot into other systems or communicate with malicious servers
+
+### ✅ Secure Implementation:
+
+- Restrict Security Group ingress to trusted IP ranges only
+- Close unused ports; avoid exposing SSH to the internet
+- Use a VPN or Bastion Host for administrative access
+- Apply the principle of least privilege when defining firewall rules
+- Regularly scan IaC for misconfigurations before deployment
+
+---
+
+## How ArmourZero Helps
 
 - **Detects** vulnerabilities like the ones above through scans
 - **Shows impact** and how they can be exploited

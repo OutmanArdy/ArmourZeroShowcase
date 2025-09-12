@@ -47,12 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     rel="stylesheet"
   />
   <style>
-    :root {
-      --primary: #ff9500;
-      --accent:  #ff8c00;
-      --black:   #121212;
-      --white:   #FFFFFF;
-    }
     body {
       background: var(--black);
       color: var(--white);
@@ -61,97 +55,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       font-size: 20px;
       font-weight: 400; 
     }
-    .main-content {
-      background: #1e1e1e;
-      padding: 30px;
-      border-radius: 8px;
-      border: 1px solid #333;
-      text-align: center;
-    }
-    h1 {
-      color: var(--primary);
-      font-size: 32px;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-    strong, b {
-      font-weight: 700;
-    }
-    input[type="text"] {
-      padding: 12px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 2px solid var(--primary);
-      width: 80%;
-      max-width: 400px;
-      box-sizing: border-box;
-      margin-bottom: 15px;
-    }
-    input[type="submit"] {
-      padding: 12px;
-      font-size: 20px;
-      background: linear-gradient(to bottom, var(--primary), var(--accent));
-      color: #000;
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      box-shadow: 0 0 10px var(--primary);
-      transition: all 0.3s ease;
-      font-weight: bold;
-      font-size: 16px;
-    }
-    input[type="submit"]:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 0 20px var(--primary);
-    }
-    input[type="submit"]:disabled {
-      background: #444;
-      color: #aaa;
-      cursor: not-allowed;
-      transform: none;
-      box-shadow: none;
-    }
     .output {
-      background: #121212;
-      padding: 20px;
-      border-radius: 8px;
-      color: var(--primary);
-      border: 1px solid #333;
-      margin-top: 20px;
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-wrap: wrap;
       overflow-wrap: anywhere;
-      max-width: 100%;
     }
   </style>
 </head>
 <body>
-  <div class="main-container">
-    <div class="main-content">
-        <h1>Private Key Exposure - Secured</h1>
-        <p><b>Exploit Example:</b> The API was leaked, but you can secure it.</p>
-        <form method="POST" action="Secrets/KeyExposureSafe.php">
-            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES | ENT_HTML5); ?>">
-            <?php if (!empty($manager->getMeta()['rotated'])): ?>
-                <input type="submit" value="Secured" disabled>
-                <?php else: ?>
-                <input type="submit" value="Secure the Key">
-            <?php endif; ?>
-        </form>
-      </div>
-        <div class="output">
-          <?php 
-          $meta = $manager->getMeta();
-          if (!empty($meta['rotated'])): ?>
-              <strong>API Key (hashed):</strong> <?php echo $apiKeyHash; ?>
-          <?php else: ?>
-              <strong>Key Status:</strong> <?php echo "YOUR_LEAKED_API_KEY"; ?>
-          <?php endif; ?>
-      </div>
-    </div>
+  <div class="main-content">
+    <h1>Private Key Exposure - Secured</h1>
+    <p><b>Exploit Example:</b> The API was leaked, but you can secure it.</p>
+    <form method="POST" action="Secrets/KeyExposureSafe.php">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token'], ENT_QUOTES | ENT_HTML5); ?>">
+        <?php if (!empty($manager->getMeta()['rotated'])): ?>
+            <input type="submit" value="Secured" disabled>
+            <?php else: ?>
+            <input type="submit" value="Secure the Key">
+        <?php endif; ?>
+    </form>
+  </div>
+  <div class="output">
+    <?php 
+    $meta = $manager->getMeta();
+    if (!empty($meta['rotated'])): ?>
+        <strong>API Key (hashed):</strong> <?php echo $apiKeyHash; ?>
+    <?php else: ?>
+        <strong>Key Status:</strong> <?php echo "YOUR_LEAKED_API_KEY"; ?>
+    <?php endif; ?>
   </div>
 </body>
 </html>
